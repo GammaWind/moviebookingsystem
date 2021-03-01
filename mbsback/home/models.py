@@ -11,7 +11,7 @@ class User(models.Model):
     staff       =   models.BooleanField(default=False)
     admin       =   models.BooleanField(default=False)
     timestamp   =   models.DateTimeField(auto_now_add=True)
-    password    =   models.CharField(max_length=50,default=False)
+    password    =   models.CharField(max_length=50)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS= []
 
