@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'home',
     'cinema',
+    'booking',
+    'movie',
 ]
 
 MIDDLEWARE = [
