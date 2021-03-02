@@ -11,12 +11,14 @@ from rest_framework import status
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
+from rest_framework import permissions
 
 
 
 
 # Create your views here.
-
+class MyViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.DjangoModelPermissions]
 
 
 class RegisterUser(viewsets.ModelViewSet):
@@ -25,8 +27,5 @@ class RegisterUser(viewsets.ModelViewSet):
     queryset = User.objects.all()
     # http_method_names = [ 'post', 'head'] #only allowed calls are 'POST' and 'HEAD'
 
-class LoginUser(viewsets.ModelViewSet):
-    serializer_class = LoginSerializer
 
-    http_method_names = [ 'post', 'head'] #only allowed calls are 'POST' and 'HEAD'
 

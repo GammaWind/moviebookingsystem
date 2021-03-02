@@ -20,10 +20,11 @@ from home import views
 
 router = routers.DefaultRouter()
 router.register(r'registeruser', views.RegisterUser, 'RegisterUser')
-router.register(r'loginuser', views.LoginUser, 'LoginUser')
+# router.register(r'loginuser', views.LoginUser, 'LoginUser')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/auth/', include('djoser.urls.authtoken')),
 
 ]

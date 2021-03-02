@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #added by me
     'corsheaders',
     'rest_framework',
+    'djoser',
+    'rest_framework.authtoken',
     'home',
     'cinema',
     'booking',
@@ -132,3 +134,16 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:3000'
 ]
+
+
+REST_FRAMEWORK = {
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
