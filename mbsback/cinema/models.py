@@ -10,26 +10,36 @@ class City(models.Model):
     city_id = models.AutoField(primary_key=True)
     city_name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.city_name
+
 
 class Cinema(models.Model):
     cinema_id = models.AutoField(primary_key=True)
     cinem_name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.cinem_name
 
 class CinemaHall(models.Model):
     cinemahall_id = models.AutoField(primary_key=True)
     cinemahall_name = models.CharField(max_length=50) 
-    cinama_id = models.ForeignKey(Cinema,on_delete=models.CASCADE,default=0)   
+    cinama_id = models.ForeignKey(Cinema,on_delete=models.CASCADE,default=0)
+    def __str__(self):
+        return self.cinemahall_name 
 
 class CinemasInCity(models.Model):
     city_id = models.ForeignKey(City,on_delete=models.CASCADE,default=0) 
-    cinema_id = models.ForeignKey(Cinema,on_delete=models.CASCADE,default=0)  
+    cinema_id = models.ForeignKey(Cinema,on_delete=models.CASCADE,default=0) 
+    def __str__(self):
+        return self.cinema_id
 
 class Seats(models.Model):
     seat_id = models.AutoField(primary_key=True)
     seat_number = models.IntegerField()
     seat_row = models.CharField(max_length=1)
     cinemahall_id = models.ForeignKey(CinemaHall,on_delete=models.CASCADE,default=0)
-
+    def __str__(self):
+        return self.seat_row + str(self.seat_number)
 
 class Show(models.Model):
     show_id = models.AutoField(primary_key=True)
@@ -38,6 +48,8 @@ class Show(models.Model):
     show_endtime = models.DateTimeField()
     movie_id = models.ForeignKey(Movie,on_delete=models.CASCADE,default=0)
     cinemahall_id = models.ForeignKey(CinemaHall,on_delete=models.CASCADE,default=0)
+    def __str__(self):
+        return self.show_id
 
 
     
