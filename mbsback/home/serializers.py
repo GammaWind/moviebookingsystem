@@ -4,9 +4,17 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.hashers import make_password
 from rest_framework.validators import UniqueValidator
-
+# from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 class UserSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = User
+    fields = ('last_name', 'first_name', 'email')
+
+# Register Serializer
+class RegisterUserSerializer(serializers.ModelSerializer):
+    
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=User.objects.all())]
@@ -46,13 +54,13 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
 
-class LoginSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        write_only=True,
-        required=True,
-        help_text='Leave empty if no change needed',
-        style={'input_type': 'password', 'placeholder': 'Password'}
-    )
-    class Meta:
-        model = User = get_user_model()
-        fields = ('email', 'password')
+class LoginSerializer(serializers.Serializer):
+    
+  username = serializers.CharField()
+  password = serializers.CharField()
+
+  def validate(self, data):
+    user = authenticate(**data)
+    if user and user.is_active:
+      return user
+    raise serializers.ValidationError("Incorrect Credentials")

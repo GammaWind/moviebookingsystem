@@ -40,12 +40,13 @@ INSTALLED_APPS = [
     #added by me
     'corsheaders',
     'rest_framework',
-    'djoser',
+    
     'rest_framework.authtoken',
     'home',
     'cinema',
     'booking',
     'movie',
+    'knox'
 ]
 
 MIDDLEWARE = [
@@ -139,11 +140,12 @@ CORS_ORIGIN_WHITELIST = [
 REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'knox.auth.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
 }
