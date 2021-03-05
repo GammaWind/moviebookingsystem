@@ -7,10 +7,13 @@ import { createMessage } from '../../actions/messages';
 
 export class Register extends Component {
   state = {
-    username: '',
+    
     email: '',
     password: '',
     password2: '',
+    first_name:'',
+    last_name:'',
+    phone_number:'',
   };
 
   static propTypes = {
@@ -20,14 +23,17 @@ export class Register extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password, password2 } = this.state;
+    const { email, password, password2,first_name,last_name,phone_number } = this.state;
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: 'Passwords do not match' });
     } else {
       const newUser = {
-        username,
+      
         password,
         email,
+        first_name,
+        last_name,
+        phone_number
       };
       this.props.register(newUser);
     }
@@ -39,22 +45,13 @@ export class Register extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
     }
-    const { username, email, password, password2 } = this.state;
+    const {  email, password, password2, first_name,last_name,phone_number } = this.state;
     return (
       <div className="col-md-6 m-auto">
         <div className="card card-body mt-5">
           <h2 className="text-center">Register</h2>
           <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label>Username</label>
-              <input
-                type="text"
-                className="form-control"
-                name="username"
-                onChange={this.onChange}
-                value={username}
-              />
-            </div>
+            
             <div className="form-group">
               <label>Email</label>
               <input
@@ -63,6 +60,36 @@ export class Register extends Component {
                 name="email"
                 onChange={this.onChange}
                 value={email}
+              />
+            </div>
+            <div className="form-group">
+              <label>First Name</label>
+              <input
+                type="first_name"
+                className="form-control"
+                name="first_name"
+                onChange={this.onChange}
+                value={first_name}
+              />
+            </div>
+            <div className="form-group">
+              <label>Last Name</label>
+              <input
+                type="last_name"
+                className="form-control"
+                name="last_name"
+                onChange={this.onChange}
+                value={last_name}
+              />
+            </div>
+            <div className="form-group">
+              <label>Mobile Number</label>
+              <input
+                type="phone_number"
+                className="form-control"
+                name="phone_number"
+                onChange={this.onChange}
+                value={phone_number}
               />
             </div>
             <div className="form-group">
