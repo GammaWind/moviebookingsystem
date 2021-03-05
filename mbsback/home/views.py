@@ -27,6 +27,7 @@ from .serializers import LoginSerializer,RegisterUserSerializer,UserSerializer
 
 
 class RegisterUser(generics.GenericAPIView):
+  
   serializer_class = RegisterUserSerializer
 
   def post(self, request, *args, **kwargs):
