@@ -31,7 +31,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     # path('api/auth/', include('djoser.urls.authtoken')),
     # path('api/login/', include('djoser.urls.authtoken')),
-    
+    path('', include('frontend.urls')),
     path('api/auth', include('knox.urls')),
     path('api/auth/register', views.RegisterUser.as_view()),
     path('api/auth/login', LoginUser.as_view()),

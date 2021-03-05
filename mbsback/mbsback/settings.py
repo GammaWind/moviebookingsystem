@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'cinema',
     'booking',
     'movie',
-    'knox'
+    'knox',
+    'frontend'
 ]
 
 MIDDLEWARE = [
