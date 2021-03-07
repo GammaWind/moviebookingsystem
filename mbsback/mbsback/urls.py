@@ -13,18 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from cinema.models import Cinema
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
 from home import views
 from django.urls import path, include
+from cinema.views import CityAPI,MoviesInCityAPI,MovieInCinemaHallsAPI
 from home.views import RegisterUser, LoginUser, UserAPI
+
 from knox import views as knox_views
+
 
 
 router = routers.DefaultRouter()
 # router.register(r'registeruser', views.RegisterUser, 'RegisterUser')
 # router.register(r'loginuser', views.LoginUser, 'LoginUser')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,7 +42,12 @@ urlpatterns = [
     path('api/auth/register', views.RegisterUser.as_view()),
     path('api/auth/login', LoginUser.as_view()),
     path('api/auth/user', UserAPI.as_view()),
-    path('api/auth/logout', knox_views.LogoutView.as_view(), name='knox_logout')
+    path('api/auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
+    path('api/city',CityAPI.as_view({'get':'cities'}),name="CityAPI"),
+    path('api/movies/<int:cityid>',MoviesInCityAPI.as_view({'get':'moviein'}),name="MoviesInCityAPI"),
+    path('api/cinemahalls/<int:movieid>',MovieInCinemaHallsAPI.as_view({'get':'movieincinemahalls'}),name="MovieInCinemaHallsAPI"),
+    
 
 
 ]
+ 
