@@ -20,10 +20,12 @@ from django.urls import path,include
 from rest_framework import routers
 from home import views
 from django.urls import path, include
-from cinema.views import CityAPI,MoviesInCityAPI,MovieInCinemaHallsAPI
+from cinema.views import CityAPI,MoviesInCityAPI,MovieInCinemaHallsAPI,SeatsForShowAPI
 from home.views import RegisterUser, LoginUser, UserAPI
 
+
 from knox import views as knox_views
+from booking.views import PreBookAPI,ShowBookedSeatsAPI
 
 
 
@@ -46,6 +48,10 @@ urlpatterns = [
     path('api/city',CityAPI.as_view({'get':'cities'}),name="CityAPI"),
     path('api/movies/<int:cityid>',MoviesInCityAPI.as_view({'get':'moviein'}),name="MoviesInCityAPI"),
     path('api/cinemahalls/<int:movieid>',MovieInCinemaHallsAPI.as_view({'get':'movieincinemahalls'}),name="MovieInCinemaHallsAPI"),
+    path('api/seats/<int:showid>',SeatsForShowAPI.as_view({'get':'seatsforshow'}),name="SeatsForShowAPI"),
+    path('api/prebooking', PreBookAPI.as_view()),
+    path('api/showbookedseats/<int:showid>',ShowBookedSeatsAPI.as_view({'get':'get'})),
+    
     
 
 

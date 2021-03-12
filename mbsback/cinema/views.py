@@ -2,9 +2,9 @@ from django.db.models import query
 from django.db.models.query import QuerySet
 from django.http import request
 from rest_framework import response, serializers
-from .models import CinemaHall, City,CinemasInCity, MoviesInCities, Show
+from .models import CinemaHall, City,CinemasInCity, MoviesInCities, Seats, Show
 from django.shortcuts import render
-from .serializers import CitySerializer,MoviesinCitySerializer, ShowSerialzer
+from .serializers import CitySerializer,MoviesinCitySerializer, ShowSerialzer,SeatsSerilizer
 from rest_framework import generics, permissions,viewsets
 from rest_framework.response import Response
 # Create your views here.
@@ -18,6 +18,7 @@ class CityAPI(viewsets.ViewSet):
         queryset = City.objects.all()
         serializer = CitySerializer(queryset, many=True)
         return Response(serializer.data)
+
 
 class MoviesInCityAPI(viewsets.ViewSet):
     def moviein(self, request,cityid):
@@ -37,6 +38,12 @@ class MovieInCinemaHallsAPI(viewsets.ViewSet):
         return Response(serializer.data)
 
 
+class SeatsForShowAPI(viewsets.ViewSet):
+    def seatsforshow(self,request,showid):
+        queryset = Seats.objects.all().filter(cinemahall_id = showid)
+        serializer = SeatsSerilizer(queryset,many = True)
+
+        return Response(serializer.data)
 
 
 

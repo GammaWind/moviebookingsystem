@@ -42,6 +42,9 @@ class Show(models.Model):
         return str(self.show_id)           
 
 class CinemasInCity(models.Model):
+    class Meta:
+        unique_together = (('city_id', 'cinema_id'),)
+
     city_id = models.ForeignKey(City,on_delete=models.CASCADE,default=0) 
     cinema_id = models.ForeignKey(Cinema,on_delete=models.CASCADE,default=0) 
     def __str__(self):
@@ -58,6 +61,8 @@ class Seats(models.Model):
 class MoviesInCities(models.Model):
     movie_id = models.ForeignKey(Movie,on_delete=models.SET_NULL,null=True)
     city_id = models.ForeignKey(City,on_delete=models.SET_NULL,null=True)
-    
+
+
+
 
     

@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import fields
 from django.db.models.query import QuerySet
 from rest_framework import serializers
-from .models import Cinema, CinemaHall, City,MoviesInCities, Show
+from .models import Cinema, CinemaHall, City,MoviesInCities, Seats, Show
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.hashers import make_password
@@ -24,14 +24,20 @@ class MoviesinCitySerializer(serializers.ModelSerializer):
     model = MoviesInCities
     fields = ['movie_id']
     depth = 1
-    
+
+
 class ShowSerialzer(serializers.ModelSerializer):
   class Meta:
     model = Show
-    fields = ['cinemahall_id']
+    fields = ('show_id','show_starttime','show_endtime','cinemahall_id')
     depth = 1
 
 
+class SeatsSerilizer(serializers.ModelSerializer):
+  class Meta:
+    model = Seats
+    fields = ("__all__")
+    
 
 
   
