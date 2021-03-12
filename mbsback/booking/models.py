@@ -5,6 +5,7 @@ from django.db.models.fields.related import ForeignKey
 
 from home.models import User
 from cinema.models import Show,Seats
+import datetime
 
 
 # Create your models here.
@@ -32,32 +33,42 @@ class Booking(models.Model):
 
 class BookedSeat(models.Model):
     def __str__(self):
-        return str(self.seat_id)
+        return str(self.seats_ids)
     booking_id = models.ForeignKey(Booking,on_delete=models.CASCADE,default=0)
-    seat_id    = models.ForeignKey(Seats,on_delete=models.CASCADE,default=0)
+    seats_ids    = models.ForeignKey(Seats,on_delete=models.CASCADE,default=0)
     show_id = models.ForeignKey(Show,on_delete=models.CASCADE,default=1)
 
     class Meta:
-        unique_together = (('show_id', 'seat_id'),)
+        unique_together = (('booking_id','show_id', 'seats_ids'),)
 
 
 
 class PreBooking(models.Model):
+
     prebooking_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE,default=0) 
     show_id = models.ForeignKey(Show,on_delete=models.CASCADE,default=0)
-    prebookingseat_id = models.OneToOneField(Seats,on_delete=models.CASCADE,unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return str(self.prebooking_id)
+
+
+    @property
+    def seats_ids(self):
+        return "Perform calculations, combine with related models, etc. etc."
+    
 
 class PreBookingSelectedSeats(models.Model):
     def __str__(self):
         return str(self.seat_id)
 
     prebooking_id = models.ForeignKey(PreBooking,on_delete=models.CASCADE,default=0)
-    prebookingseat_id   = models.ForeignKey(Seats,on_delete=models.CASCADE,default=0)
+    seat_id   = models.ForeignKey(Seats,on_delete=models.CASCADE,default=0)
     show_id = models.ForeignKey(Show,on_delete=models.CASCADE,default=1)
+    created = models.DateTimeField(auto_now_add=True)
+    
 
 
    

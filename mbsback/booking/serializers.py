@@ -1,5 +1,6 @@
 
-from .models import BookedSeat, Booking, Payment
+from django.db.models.fields import files
+from .models import BookedSeat, Booking, Payment, PreBooking
 from django.db import models
 from django.db.models import fields
 from django.db.models.query import QuerySet
@@ -37,15 +38,20 @@ class BookingSerializer(serializers.ModelSerializer):
             'show_id':{'required': True}
         }  
 
-class PreBookingSerializer(serializers.Serializer):
-    show_id= serializers.IntegerField()
-    seat_ids = serializers.ListField()
+class PreBookingSerializer(serializers.ModelSerializer):
+    seats_ids = serializers.ListField(source='custom_property', read_only=True,validators=[UniqueValidator(queryset=BookedSeat.objects.all())])
+    
+            
+    class Meta:
+        model = PreBooking
+        fields = ('prebooking_id','show_id','user_id','seats_ids')
+    
     
 
 
 class ShowSeatsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookedSeat
-        fields = ('booking_id', 'seat_id')
+        fields = ('booking_id', 'seats_ids')
 
     
